@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+echo "$(jsenv-version-name) (set by $(jsenv-version-origin)) "

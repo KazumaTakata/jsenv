@@ -1,0 +1,33 @@
+#!/bin/bash
+
+
+
+
+DEFAULT_PATH="${HOME}/.jsenv/default"
+
+if [ -z "$JSENV_VERSION" ]; then
+    JSENV_VERSION_FILE="$(jsenv-version-origin)"
+
+    if [ -n "$JSENV_VERSION_FILE" ]; then
+        JSENV_VERSION="$(cat "$JSENV_VERSION_FILE")"
+    else
+        echo system > "$DEFAULT_PATH"
+        JSENV_VERSION=system
+    fi
+fi
+
+if [ "$JSENV_VERSION" = "system" ]; then
+    echo "$JSENV_VERSION"
+    exit
+fi
+
+
+
+JSENV_VERSION_PATH="${HOME}/.jsenv/versions/${JSENV_VERSION}"
+
+if [ -d "$JSENV_VERSION_PATH" ]; then
+    echo "$JSENV_VERSION"
+else
+    echo "jsenv: version $JSENV_VERSION is not installed" >&2
+    exit 1
+fi

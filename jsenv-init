@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+
+mkdir -p "${HOME}/.jsenv/"{shims,versions}
+
+echo 'export PATH="${HOME}/.jsenv/shims:${PATH}"'
+
+

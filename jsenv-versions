@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+
+for version_dir  in "${HOME}/.jsenv/versions/"*; do
+    if [ -d "$version_dir" ]; then
+        echo $(basename $version_dir)
+    fi
+done
+
+
+echo "system"
+
+

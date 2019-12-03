@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+version="$(jsenv-version-name)"
+if [ "$version" == "system" ]; then
+    binary_path="$/usr/local/bin/node" 
+else
+    binary_path="${HOME}/.jsenv/versions/${version}/bin/node"
+fi
+
+
+
+
+exec "$binary_path" "$@"

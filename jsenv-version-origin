@@ -1,0 +1,34 @@
+#!/bin/bash
+
+
+find_version_file(){
+    local root="$(pwd)"
+    while [ "$root" != "/" ]; do
+        if [ -e "${root}/.jsenv-version" ]; then
+            echo "${root}/.jsenv-version"
+            return 0
+        fi
+        root="$(dirname $root)"
+    done
+    return 1
+
+}
+
+DEFAULT_PATH="${HOME}/.jsenv/default"
+
+find_default_version_file() {
+    if [ -e "$DEFAULT_PATH" ]; then
+        echo "$DEFAULT_PATH"
+        return 0
+    fi
+    return 1
+
+}
+
+
+if [ -z "$JSENV_VERSION" ]; then
+    find_version_file || find_default_version_file || true
+else
+    echo "JSENV_VERSION environment variable"
+fi
+

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+version=$1
+base_dir="${HOME}/.jsenv/versions"
+node_url="https://nodejs.org/download/release"
+
+
+if [ "$version" = "list" ]; then 
+    echo "list"
+else if [ -n "$version" ]; then
+         echo "install $version node.js"
+
+         if [ -d "$base_dir/$version" ]; then
+            echo "node $version is already installed."
+         else
+            url="$node_url/$version/node-$version-darwin-x64.tar.gz"
+            echo "installing node $version from $url"
+            responce_header=$(wget  -q --server-response  "$url" 2>&1 ) 
+            status_code=$(echo  $responce_header | cut -c 10-12) 
+            if [ $status_code = "200" ]; then
+                echo "successfully install node $version"
+                tar xzf "node-$version-darwin-x64.tar.gz" 
+                rm "node-$version-darwin-x64.tar.gz"
+                mv "node-$version-darwin-x64" "${HOME}/.jsenv/versions/$version"
+            else
+                echo "download failed"
+            fi
+
+
+         fi
+     else
+         echo "jsenv: jsenv install [version]"
+
+     fi
+fi
